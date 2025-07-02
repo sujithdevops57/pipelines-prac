@@ -1,0 +1,12 @@
+pipeline{
+agent {
+label 'label-pipe1'
+}
+stages{
+stage('Build'){
+steps{
+echo "hello world hi sujith"
+}
+}
+}
+}
