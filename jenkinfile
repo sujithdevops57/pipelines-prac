@@ -1,11 +1,13 @@
-pipeline{
-agent any 
-stages{
-stage('build'){
-steps{
-echo "comming from git hub repo"
-sh "hostname -i"
+pipeline {
+    agent any          // Run this pipeline on any available Jenkins agent
+
+    stages {
+        stage('build') {
+            steps {
+                echo "comming from git hub repo"    // Prints a message to the Jenkins console log
+                sh "hostname -i"                   // Runs a shell command to print the agent's IP address
+            }
+        }
+    }
 }
-}
-}
-}
+
