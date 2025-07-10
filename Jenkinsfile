@@ -18,10 +18,12 @@ pipeline {
         stage('sec-stage'){
             environment{
                 id="5657"
+                course="python"
             }
             steps{
                 echo "u r second stage "
                 echo "Yours id is ${id}"
+                echo "urs course is ${course}"
             }
          
         }
