@@ -1,31 +1,48 @@
 pipeline {
-    agent {
-        label 'jenkins-slave1'
+    agent any
+    
+    tools {
+        maven 'M3'  // Assumes you've configured Maven in Jenkins Global Tool Configuration
     }
-    environment{
-        name="sujith"
-        course="java-full-stack-developer"
-    }
+    
     stages {
-        stage('first-stage') {
+        stage('Checkout') {
             steps {
-                echo "hello welcome to jenkins"
-                echo "welcome ${name}"
-                echo "Have u learned ${course}"
-            
+                git branch: 'main', url: 'https://your-repo-url.git'  // Update with your repo URL
             }
         }
-        stage('sec-stage'){
-            environment{
-                id="5657"
-                course="python"
+        
+        stage('Install Maven Packages') {
+            steps {
+                script {
+                    // Execute your custom script if you have one
+                    if (fileExists('install-maven-packages.sh')) {
+                        sh 'chmod +x install-maven-packages.sh'
+                        sh './install-maven-packages.sh'
+                    } else {
+                        // Default maven install if no script exists
+                        sh 'mvn clean install -DskipTests'
+                    }
+                }
             }
-            steps{
-                echo "u r second stage "
-                echo "Yours id is ${id}"
-                echo "urs course is ${course}"
+        }
+        
+        stage('Verify Installation') {
+            steps {
+                sh 'mvn dependency:tree'  // Verify dependencies were installed
             }
-         
+        }
+    }
+    
+    post {
+        always {
+            junit '**/target/surefire-reports/*.xml'  // Report test results if tests were run
+        }
+        success {
+            echo 'Maven packages installed successfully!'
+        }
+        failure {
+            echo 'Failed to install Maven packages. Check logs for details.'
         }
     }
 }
