@@ -1,38 +1,36 @@
-pipeline{
+pipeline {
     agent none
 
-   stages{
-       
-    stage('Build-stage -node -1a'){
-        agent{
-            label 'node-1a-label-1a'
-        }
-        steps{
-            echo "hello sujith how r u"
-        echo "this  is building stage"
-        sh "hostname -i"
+    stages {
+        stage('Build-stage - node-1a') {
+            agent {
+                label 'node-1a-label-1a'
+            }
+            steps {
+                echo "Hello Sujith, how are you?"
+                echo "This is the Building stage"
+                sh "hostname -i"
+            }
         }
 
-    }
-    stage('compiling -node-1b'){
-        agent{
-            label 'node-1b-label-1b'
+        stage('Compiling - node-1b') {
+            agent {
+                label 'node-1b-label-1b'
+            }
+            steps {
+                echo "Running on label node-1b"
+                sh "hostname -i"
+            }
         }
-       steps{
-            echo "Running on label node-1b"
-        sh 'hostname -i'
-       }
 
-    }
-    stage('executing-stage -node-1c'){
-        agent{
-            label 'node-1c-label-1c'
+        stage('Executing-stage - node-1c') {
+            agent {
+                label 'node-1c-label-1c'
+            }
+            steps {
+                echo "This is the Executing stage"
+                sh "hostname -i"
+            }
         }
-       steps{
-            echo "This is on executing stage"
-        sh 'hostname -i'
-       }
-
     }
-   }
 }
