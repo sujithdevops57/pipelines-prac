@@ -10,7 +10,7 @@ pipeline{
                 script{
                     def student="sujithmanelli"
 
-                    if (student=="sujithmanelli")
+                    if (student=="Sujithmanelli")
                     {
                         println("he is sujith only ,u can proceed")
                     }
