@@ -2,6 +2,7 @@ pipeline{
     agent none
 
    stages{
+       
     stage('Build-stage -node -1a'){
         agent{
             label 'node-1a-label-1a'
@@ -13,7 +14,7 @@ pipeline{
         }
 
     }
-    stage(compiling -node-1b){
+    stage('compiling -node-1b'){
         agent{
             label 'node-1b-label-1b'
         }
@@ -23,7 +24,7 @@ pipeline{
        }
 
     }
-    stage(executing-stage -node-1c){
+    stage('executing-stage -node-1c'){
         agent{
             label 'node-1c-label-1c'
         }
