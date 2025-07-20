@@ -1,48 +1,31 @@
-pipeline {
-    agent any
-    
-    tools {
-        maven '3.9.10'  // Assumes you've configured Maven in Jenkins Global Tool Configuration
+pipeline{
+    agent none
+
+   stages{
+    stage('Build-stage -node -1a'){
+        agent{
+            label 'node-1a-label-1a'
+        }
+        echo "hello sujith how r u"
+        echo "this  is building stage"
+        sh "hostname -i"
+
     }
-    
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://your-repo-url.git'  // Update with your repo URL
-            }
+    stage(compiling -node-1b){
+        agent{
+            label 'node-1b-label-1b'
         }
-        
-        stage('Install Maven Packages') {
-            steps {
-                script {
-                    // Execute your custom script if you have one
-                    if (fileExists('install-maven-packages.sh')) {
-                        sh 'chmod +x install-maven-packages.sh'
-                        sh './install-maven-packages.sh'
-                    } else {
-                        // Default maven install if no script exists
-                        sh 'mvn clean install -DskipTests'
-                    }
-                }
-            }
-        }
-        
-        stage('Verify Installation') {
-            steps {
-                sh 'mvn dependency:tree'  // Verify dependencies were installed
-            }
-        }
+        echo "Running on label node-1b"
+        sh 'hostname -i'
+
     }
-    
-    post {
-        always {
-            junit '**/target/surefire-reports/*.xml'  // Report test results if tests were run
+    stage(executing-stage -node-1c){
+        agent{
+            label 'node-1c-label-1c'
         }
-        success {
-            echo 'Maven packages installed successfully!'
-        }
-        failure {
-            echo 'Failed to install Maven packages. Check logs for details.'
-        }
+        echo "This is on executing stage"
+        sh 'hostname -i'
+
     }
+   }
 }
