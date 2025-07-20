@@ -19,6 +19,7 @@ pipeline {
             }
             steps {
                 echo "Running on label node-1b"
+                echo "this is compiling stage "
                 sh "hostname -i"
             }
         }
@@ -29,6 +30,7 @@ pipeline {
             }
             steps {
                 echo "This is the Executing stage"
+                echo "this is sujiths executeing stage"
                 sh "hostname -i"
             }
         }
